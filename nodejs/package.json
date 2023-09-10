@@ -1,0 +1,14 @@
+{
+  "name": "tasks-app",
+  "version": "1.0.0",
+  "description": "simple expressjs app",
+  "main": "server.js",
+  "scripts": {
+    "test": ""
+  },
+  "author": "luhur",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
