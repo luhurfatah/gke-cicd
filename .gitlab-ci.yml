@@ -15,7 +15,7 @@ test-nodejs:
    - npm test 
 
 test-golang:
-  image: golang:1.18-alpine
+  image: golang:1.18
   stage: test
   before_script:
    - cd golang
