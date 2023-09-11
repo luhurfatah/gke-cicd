@@ -72,3 +72,10 @@ Example Response:
 "OK"
 ```
 
+# Testing API
+
+<details>
+<summary>Test add new task to golang app</summary>
+![](./img/addTaskGolang.png)
+</details>
+
