@@ -21,7 +21,7 @@ test-golang:
    - cd golang
   script:
    - go mod download 
-   - go run test 
+   - go test 
    
 # build-nodejs:
 #   image: docker:latest         
