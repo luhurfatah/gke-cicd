@@ -56,3 +56,19 @@ Example Response:
 }
 ```
 
+## Health Check
+- Endpoint: /healthz
+- Method: GET
+- Description: Health check
+- Response: a String "OK"
+
+Example Request:
+```
+curl -X GET http://localhost:8000/healtz
+```
+
+Example Response:
+```
+"OK"
+```
+
