@@ -76,6 +76,10 @@ Example Response:
 
 <details>
 <summary>Test add new task to golang app</summary>
+  
 ![](./img/addTaskGolang.png)
+
 </details>
+
+
 
