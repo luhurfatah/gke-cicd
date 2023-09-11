@@ -13,7 +13,7 @@ http://localhost:3000
 
 Example Request:
 ```
-GET http://localhost:8000/tasks
+curl -X GET http://localhost:8000/tasks
 ```
 
 Example Response:
