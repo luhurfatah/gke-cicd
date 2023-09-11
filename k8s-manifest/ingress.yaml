@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: external-ip
+  name: ingress
+  namespace: default
+spec:
+  rules:
+  - host: golang.lzy.engineer
+    http:
+      paths:
+      - backend:
+          service:
+            name: golang-service
+            port:
+              number: 80
+        path: /*
+        pathType: ImplementationSpecific
+  - host: nodejs.lzy.engineer
+    http:
+      paths:
+      - backend:
+          service:
+            name: nodejs-service
+            port:
+              number: 80
+        path: /*
+        pathType: ImplementationSpecific
+status:
+  loadBalancer:
+    ingress:
+    - ip: 35.201.64.31
