@@ -1,0 +1,4 @@
+
+@BaseUri = http://golang.lzy.engineer
+
+GET {{BaseUri}}/tasks HTTP/1.1
