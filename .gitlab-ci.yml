@@ -1,14 +1,10 @@
+image: node:14-alpine
 stages:         
   - build
   - test
 
-image: docker:19.03.12
 variables:
- DOCKER_HOST: tcp://docker:2375/
- DOCKER_TLS_CERTDIR: ""
  REGISTRY_HOSTNAME: gcr.io/pintu-sre
-services:
- - docker:19.03.12-dind
 
 test-nodejs:
   stage: test
