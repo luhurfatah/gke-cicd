@@ -101,6 +101,14 @@ Example Response:
 
 <details>
 <summary>Test add new task to golang app</summary>
+<<<<<<< HEAD
 
 ![add task to golang](img/addTaskGolang.png)
+
 </details>
+=======
+  
+
+
+
+>>>>>>> 2474f5c08c2fac1f76d016c3eeddcdb9aa14ed53
