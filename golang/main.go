@@ -16,12 +16,17 @@ var tasks []Task
 func main() {
 	router := gin.Default()
 	router.GET("/tasks", getTasks)
+	router.GET("/healthz", healthCheck)
 	router.POST("/tasks", createTask)
 	router.Run(":8080")
 }
 
 func getTasks(c *gin.Context) {
 	c.JSON(http.StatusOK, tasks)
+}
+
+func healthCheck(c *gin.Context) {
+	c.JSON(http.StatusOK, "OK")
 }
 
 func createTask(c *gin.Context) {

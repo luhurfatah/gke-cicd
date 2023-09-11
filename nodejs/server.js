@@ -11,6 +11,10 @@ server.get('/tasks', (req, res) => {
     res.json(tasks)
 })
 
+server.get('/healthz', (req, res) => {
+    res.json("OK")
+})
+
 server.post('/tasks', (req, res) => {
     const {title, description} = req.body
      if(!title) {
