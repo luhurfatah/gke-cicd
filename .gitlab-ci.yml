@@ -18,7 +18,7 @@ test-golang:
   image: golang:1.18-alpine
   stage: test
   before_script:
-   - cd nodejs
+   - cd golang
   script:
    - go mod download 
    - go test 
