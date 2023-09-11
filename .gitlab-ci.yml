@@ -60,8 +60,8 @@ deploy:
    - gcloud auth activate-service-account --key-file=key.json
    - gcloud config set project $PROJECT_NAME
    - gcloud config set container/cluster $CLUSTER_NAME
-   - gcloud config set compute/zone asia-south1-c
-   - gcloud container clusters get-credentials $CLUSTER_NAME --zone asia-south1-c --project $PROJECT_NAME
+   - gcloud config set compute/zone asia-southeast2-a
+   - gcloud container clusters get-credentials $CLUSTER_NAME --zone asia-southeast2-a --project $PROJECT_NAME
    - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" ./k8s-manifest/nodejs/deployment.yaml
    - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" ./k8s-manifest/golang/deployment.yaml
    - kubectl apply -f ./k8s-manifest/nodejs/deployment.yaml
