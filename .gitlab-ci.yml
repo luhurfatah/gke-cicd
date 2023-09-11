@@ -1,6 +1,7 @@
 stages:         
   - test
   - build
+  - deploy
 
 variables:
  REGISTRY_HOSTNAME: gcr.io/pintu-sre
