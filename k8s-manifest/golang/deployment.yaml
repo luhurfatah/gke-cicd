@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: golang-deployment
+spec:
+  replicas: 3 
+  selector:
+    matchLabels:
+      app: golang-app
+  template:
+    metadata:
+      labels:
+        app: golang-app
+    spec:
+      containers:
+        - name: golang-app
+          image: gcr.io/pintu-sre/golang-tasksapp:0.1
+          ports:
+            - containerPort: 8080 
