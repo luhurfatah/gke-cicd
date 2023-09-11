@@ -32,3 +32,5 @@ server.post('/tasks', (req, res) => {
 server.listen(port,  () => {
     console.log(`Server is running on http://localhost:${port}`)
 })
+
+module.exports = server; 
