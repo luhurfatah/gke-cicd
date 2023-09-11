@@ -23,16 +23,29 @@ test-golang:
    - go mod download 
    - go test 
    
-# build-nodejs:
-#   image: docker:latest         
-#   stage: build
-#   services:
-#     - docker:dind
-#   before_script:
-#    - docker info
-#    - echo "$SERVICE_ACCOUNT_KEY" > service-account.json
-#    - docker login -u _json_key --password-stdin https://gcr.io < service-account.json
-#   script:
-#    - docker build --tag $REGISTRY_HOSTNAME/nodejs-taskapp:$CI_COMMIT_SHORT_SHA ./nodejs
-#    - docker push $REGISTRY_HOSTNAME/nodejs-taskapp:$CI_COMMIT_SHORT_SHA
+build-nodejs:
+  image: docker:latest         
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+   - docker info
+   - echo "$SERVICE_ACCOUNT_KEY" > service-account.json
+   - docker login -u _json_key --password-stdin https://gcr.io < service-account.json
+  script:
+   - docker build --tag $REGISTRY_HOSTNAME/nodejs-taskapp:$CI_COMMIT_SHORT_SHA ./nodejs
+   - docker push $REGISTRY_HOSTNAME/nodejs-taskapp:$CI_COMMIT_SHORT_SHA
+
+build-golang:
+  image: docker:latest         
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+   - docker info
+   - echo "$SERVICE_ACCOUNT_KEY" > service-account.json
+   - docker login -u _json_key --password-stdin https://gcr.io < service-account.json
+  script:
+   - docker build --tag $REGISTRY_HOSTNAME/golang-taskapp:$CI_COMMIT_SHORT_SHA ./golang
+   - docker push $REGISTRY_HOSTNAME/golang-taskapp:$CI_COMMIT_SHORT_SHA
 
