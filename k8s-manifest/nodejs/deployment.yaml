@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: nodejs-app
-          image: gcr.io/pintu-sre/nodejs-tasksapp:0.1.2
+          image: gcr.io/pintu-sre/nodejs-tasksapp:<VERSION>
           ports:
             - containerPort: 8000 
