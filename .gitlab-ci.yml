@@ -8,17 +8,21 @@ variables:
 test-nodejs:
   image: node:14-alpine
   stage: test
+  before_script:
+   - cd nodejs
   script:
-   - npm ci ./nodejs
-   - npm test ./nodejs
+   - npm ci 
+   - npm test 
 
 test-golang:
   image: golang:1.18-alpine
   stage: test
+  before_script:
+   - cd nodejs
   script:
-   - go mod download
-   - go test ./golang
-
+   - go mod download 
+   - go test 
+   
 # build-nodejs:
 #   image: docker:latest         
 #   stage: build
