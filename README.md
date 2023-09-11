@@ -1,3 +1,28 @@
+# Infrastructure Setup
+
+First, we need to setup the GKE cluster that we will use later to deploy the app. Here i am using GKE standard cluster.
+
+```
+ gcloud beta container --project "pintu-sre" clusters create "k8s-pintu" --zone "asia-southeast2-a" --no-enable-basic-auth --cluster-version "1.27.3-gke.100" --release-channel "None" --machine-type "e2-highmem-2" --image-type "COS_CONTAINERD" --disk-type "pd-standard" --disk-size "50" --metadata disable-legacy-endpoints=true --spot --num-nodes "3" --enable-ip-alias --network "projects/pintu-sre/global/networks/default" --subnetwork "projects/pintu-sre/regions/asia-southeast2/subnetworks/default" --no-enable-intra-node-visibility --default-max-pods-per-node "110" --no-enable-master-authorized-networks --addons HorizontalPodAutoscaling,HttpLoadBalancing --enable-autoupgrade --enable-autorepair --max-surge-upgrade 1 --max-unavailable-upgrade 0 --no-enable-managed-prometheus --enable-shielded-nodes --node-locations "asia-southeast2-a"
+```
+
+After the cluster has been successfully created, i proceed to deploy the golang and nodejs app to the k8s cluster that has just created, but i will do it using cicd script that has already been created before, i just need to setup the service account and pass it to the variable, then i just need to trigger the pipeline.
+
+<details>
+<summary>Pipeline</summary>
+
+![](./img/successfulPipeline.png)
+</details>
+
+Then we proceed to deploy the service and the ingress using k8s manifest that has been created before.
+<details>
+<summary>K8s Status</summary>
+
+![](./img/getK8sResource.png)
+</details>
+
+We already deploy 2 service that is responsible for both golang and nodejs deployment, and the also already deploy the ingress that will route the request to the service based on the host. In GKE, ingress is deployed using GLB, and GLB use NEG as their backend, and for the frontend i already configure it to use a static IP Addreass which is 35.201.64.31. And since be dont configure our backend manually, the GLB will automatically create a health cheack that will check the readiness of the pod based on the response of http request to the / path, this will be a problem for us because our app doesn't have a route that handle / path, so we need to edit manually the healt check to request into /healtz instead of /, so our pod will not be mark not ready.
+
 # API Documentation
 tes cicd tes
 ## Base URL
@@ -72,3 +97,10 @@ Example Response:
 "OK"
 ```
 
+# Testing API
+
+<details>
+<summary>Test add new task to golang app</summary>
+
+![add task to golang](img/addTaskGolang.png)
+</details>
