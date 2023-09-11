@@ -27,5 +27,5 @@ build-nodejs:
    - docker login -u _json_key --password-stdin https://gcr.io < service-account.json
   script:
    - docker build --tag $REGISTRY_HOSTNAME/nodejs-taskapp:$CI_COMMIT_SHORT_SHA ./nodejs
-   - docker push $REGISTRY_HOSTNAME/nodejs-taskapp:$CI_COMMIT_SHORT_SH
+   - docker push $REGISTRY_HOSTNAME/nodejs-taskapp:$CI_COMMIT_SHORT_SHA
 
