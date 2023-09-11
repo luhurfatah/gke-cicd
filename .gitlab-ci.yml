@@ -1,32 +1,34 @@
 stages:         
-  - build
   - test
+  - build
 
 variables:
  REGISTRY_HOSTNAME: gcr.io/pintu-sre
 
 test-nodejs:
-  image: node:16-alpine
+  image: node:14-alpine
   stage: test
   script:
+   - npm ci ./nodejs
    - npm test ./nodejs
 
 test-golang:
   image: golang:1.18-alpine
   stage: test
   script:
+   - go mod download
    - go test ./golang
 
-build-nodejs:
-  image: docker:latest         
-  stage: build
-  services:
-    - docker:dind
-  before_script:
-   - docker info
-   - echo "$SERVICE_ACCOUNT_KEY" > service-account.json
-   - docker login -u _json_key --password-stdin https://gcr.io < service-account.json
-  script:
-   - docker build --tag $REGISTRY_HOSTNAME/nodejs-taskapp:$CI_COMMIT_SHORT_SHA ./nodejs
-   - docker push $REGISTRY_HOSTNAME/nodejs-taskapp:$CI_COMMIT_SHORT_SHA
+# build-nodejs:
+#   image: docker:latest         
+#   stage: build
+#   services:
+#     - docker:dind
+#   before_script:
+#    - docker info
+#    - echo "$SERVICE_ACCOUNT_KEY" > service-account.json
+#    - docker login -u _json_key --password-stdin https://gcr.io < service-account.json
+#   script:
+#    - docker build --tag $REGISTRY_HOSTNAME/nodejs-taskapp:$CI_COMMIT_SHORT_SHA ./nodejs
+#    - docker push $REGISTRY_HOSTNAME/nodejs-taskapp:$CI_COMMIT_SHORT_SHA
 
