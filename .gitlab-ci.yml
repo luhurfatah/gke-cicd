@@ -19,6 +19,8 @@ test-golang:
 build-nodejs:
   image: docker:latest         
   stage: build
+  services:
+    - docker:dind
   before_script:
    - docker info
    - echo "$SERVICE_ACCOUNT_KEY" > service-account.json
