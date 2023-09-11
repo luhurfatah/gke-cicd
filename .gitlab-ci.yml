@@ -1,4 +1,4 @@
-image: node:14-alpine
+image: node:16-alpine
 stages:         
   - build
   - test
@@ -16,7 +16,8 @@ test-golang:
   script:
    - go test ./golang
 
-build-nodejs:       
+build-nodejs:
+  image: docker:latest         
   stage: build
   before_script:
    - docker info
