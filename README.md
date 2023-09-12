@@ -1,17 +1,17 @@
 # Architecture
 
-Here is the architecture of infrastructure :
+Below, you can find the infrastructure architecture:
 ![architecture](./img/architecture.png)
 
-And here is the CI/CD pipeline architecture:
+Additionally, here's the architecture of the CI/CD pipeline:
 
 ![cicd](./img/cicdPipeline.png)
 
 # Cluster Deployment and Configuration
 
-First, we need to setup the GKE cluster that we will use later to deploy the app. Here i am using GKE standard cluster.
+First, I need to set up the GKE cluster that I will later use to deploy the app. I am using a GKE standard cluster for this purpose.
 
-```
+```bash
  gcloud beta container clusters create "k8s-pintu" \
   --project "pintu-sre" \
   --zone "asia-southeast2-a" \
@@ -39,9 +39,7 @@ First, we need to setup the GKE cluster that we will use later to deploy the app
   --no-enable-managed-prometheus \
   --enable-shielded-nodes \
   --node-locations "asia-southeast2-a"
-
 ```
-
 After creating the cluster, I deployed both the GoLang and Node.js apps on it using a CI/CD script that had been set up earlier. All I had to do was configure the service account and trigger the pipeline.
 
 <details>
@@ -60,19 +58,19 @@ Then, I proceeded to deploy the service and the ingress using Kubernetes manifes
 
 ## Service Setup
 
-We've set up two services to handle the deployments:
+I've set up two services to handle the deployments:
 - golang-service
 - nodejs-service
 
-We've also configured the ingress to route requests based on the host.
+I've also configured the ingress to route requests based on the host.
 
 ### GKE Configuration
 
-For our Google Kubernetes Engine (GKE) setup, we're using Global Load Balancing (GLB) with Network Endpoint Groups (NEG) as the backend. We've also configured a static IP address (35.201.64.31) for the frontend.
+For my Google Kubernetes Engine (GKE) setup, I'm using Global Load Balancing (GLB) with Network Endpoint Groups (NEG) as the backend. I've also configured a static IP address (35.201.64.31) for the frontend.
 
 ## Health Check Adjustment
 
-Now, here's the tricky part. GLB automatically creates a health check to see if our pods are ready. However, our app doesn't have a route for the `/` path, which causes an issue. To fix it, we manually changed the health check to request `/healthz` instead of `/`, ensuring that our pods are marked as ready.
+Now, here's the tricky part. GLB automatically creates a health check to see if my pods are ready. However, my app doesn't have a route for the `/` path, which causes an issue. To fix it, I manually changed the health check to request `/healthz` instead of `/`, ensuring that my pods are marked as ready.
 
 <details>
 <summary><strong>Ingress Status</strong></summary>
@@ -82,7 +80,7 @@ Now, here's the tricky part. GLB automatically creates a health check to see if 
 
 ## DNS Configuration
 
-After addressing the health check issue, we proceeded to create a DNS record with our domain provider to route traffic to our external IP address.
+After addressing the health check issue, I proceeded to create a DNS record with my domain provider to route traffic to my external IP address.
 
 <details>
 <summary><strong>Add DNS Record</strong></summary>
@@ -92,7 +90,7 @@ After addressing the health check issue, we proceeded to create a DNS record wit
 
 ## Final Access Testing
 
-With the infrastructure in place, we tested access to our services through the internet.
+With the infrastructure in place, I tested access to my services through the internet.
 
 <details>
 <summary><strong>Test Access to Node.js</strong></summary>
