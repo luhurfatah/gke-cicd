@@ -32,48 +32,73 @@ First, we need to setup the GKE cluster that we will use later to deploy the app
   --node-locations "asia-southeast2-a"
 
 ```
+# Cluster Deployment and Configuration
 
-After the cluster has been successfully created, i proceed to deploy the golang and nodejs app to the k8s cluster that has just created, but i will do it using cicd script that has already been created before, i just need to setup the service account and pass it to the variable, then i just need to trigger the pipeline.
-
-<details>
-<summary>Pipeline</summary>
-
-![](./img/successfulPipeline.png)
-</details>
-
-Then we proceed to deploy the service and the ingress using k8s manifest that has been created before.
-<details>
-<summary>K8s Status</summary>
-
-![](./img/getK8sResource.png)
-</details>
-
-We already deploy 2 service that is responsible for both golang and nodejs deployment, and  also already deploy the ingress that will route the request to the service based on the host. In GKE, ingress is deployed using GLB, and GLB use NEG as their backend, and for the frontend i already configure it to use a static IP Addreass which is 35.201.64.31. And since be dont configure our backend manually, the GLB will automatically create a health cheack that will check the readiness of the pod based on the response of http request to the / path, this will be a problem for us because our app doesn't have a route that handle / path, so we need to edit manually the healt check to request into /healtz instead of /, so our pod will not be mark not ready.
-And the ingress is ready and all the backend is marked healty.
-<details>
-<summary>Ingress Status</summary>
-
-![](./img/ingressReady.png)
-</details>
-After that, we just need to create a DNS record in the respective domain provider to route into our external IP Address.
-<details>
-<summary>Add DNS Record</summary>
-
-![](./img/dnsRecord.png)
-</details>
-After that, the infrastructure is ready, and can be access throuht internet.
-<details>
-<summary>Test Access nodejs</summary>
-
-![](./img/nodejsOK.png)
-</details>
+After creating the cluster, I deployed both the GoLang and Node.js apps on it using a CI/CD script that had been set up earlier. All I had to do was configure the service account and trigger the pipeline.
 
 <details>
-<summary>Test Access golang</summary>
+<summary><strong>Pipeline</strong></summary>
 
-![](./img/golangOK.png)
+![Successful Pipeline](./img/successfulPipeline.png)
 </details>
-<br>
+
+Then, I proceeded to deploy the service and the ingress using Kubernetes manifests that had been created previously.
+
+<details>
+<summary><strong>K8s Status</strong></summary>
+
+![K8s Resource Status](./img/getK8sResource.png)
+</details>
+
+## Service Setup
+
+We've set up two services to handle the deployments:
+- GoLang
+- Node.js
+
+We've also configured the ingress to route requests based on the host.
+
+### GKE Configuration
+
+For our Google Kubernetes Engine (GKE) setup, we're using Global Load Balancing (GLB) with Network Endpoint Groups (NEG) as the backend. We've also configured a static IP address (35.201.64.31) for the frontend.
+
+## Health Check Adjustment
+
+Now, here's the tricky part. GLB automatically creates a health check to see if our pods are ready. However, our app doesn't have a route for the `/` path, which causes an issue. To fix it, we manually changed the health check to request `/healthz` instead of `/`, ensuring that our pods are marked as ready.
+
+<details>
+<summary><strong>Ingress Status</strong></summary>
+
+![Ingress Ready](./img/ingressReady.png)
+</details>
+
+## DNS Configuration
+
+After addressing the health check issue, we proceeded to create a DNS record with our domain provider to route traffic to our external IP address.
+
+<details>
+<summary><strong>Add DNS Record</strong></summary>
+
+![DNS Record Configuration](./img/dnsRecord.png)
+</details>
+
+## Final Access Testing
+
+With the infrastructure in place, we tested access to our services through the internet.
+
+<details>
+<summary><strong>Test Access to Node.js</strong></summary>
+
+![Node.js Access](./img/nodejsOK.png)
+</details>
+
+<details>
+<summary><strong>Test Access to GoLang</strong></summary>
+
+![GoLang Access](./img/golangOK.png)
+</details>
+
+
 
 The CI/CD setup also ready, and will automatically trigger of there is a commit in the repository.
 
