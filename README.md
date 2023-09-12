@@ -187,6 +187,7 @@ Example Response:
 ```
 
 # Testing API
+Keep in mind that this service only uses in-memory storage and doesn't have a database. So, sometimes, the API's response might be different based on which of the three pods handles the request. Each pod has an equal chance, so it's a 1 in 3 probability.
 
 ## Test: Add New Task to GoLang App
 
