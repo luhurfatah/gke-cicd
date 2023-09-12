@@ -5,6 +5,6 @@ POST {{BaseUri}}/tasks HTTP/1.1
 Content-Type: application/json
 
 {
-    "title": "Dummy Task",
+    "title": "Dummy Task for Golang",
     "description": "This is a dummy task description"
 }
