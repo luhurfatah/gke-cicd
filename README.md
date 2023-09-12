@@ -3,7 +3,9 @@
 Here is the architecture of infrastructure :
 ![architecture](./img/architecture.png)
 
+And here is the CI/CD pipeline architecture:
 
+![cicd](./img/cicdPipeline.png)
 
 # Cluster Deployment and Configuration
 
@@ -188,9 +190,38 @@ Example Response:
 
 # Testing API
 
-<details>
-<summary>Test add new task to golang app</summary>
+## Test: Add New Task to GoLang App
 
-![add task to golang](img/addTaskGolang.png)
+<details>
+<summary>View Test Details</summary>
+
+![Add Task to GoLang](./img/addTaskGolang.png)
+
+</details>
+
+## Test: Add New Task to Node.js App
+
+<details>
+<summary>View Test Details</summary>
+
+![Add Task to Node.js](./img/addTaskNodejs.png)
+
+</details>
+
+## Test: Get All Tasks in GoLang App
+
+<details>
+<summary>View Test Details</summary>
+
+![Get Tasks in GoLang](./img/getTasksGolang.png)
+
+</details>
+
+## Test: Get All Tasks in Node.js App
+
+<details>
+<summary>View Test Details</summary>
+
+![Get Tasks in Node.js](./img/getTasksNodejs.png)
 
 </details>
