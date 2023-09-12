@@ -9,7 +9,7 @@ Additionally, here's the architecture of the CI/CD pipeline:
 
 # Cluster Deployment and Configuration
 
-First, I need to set up the GKE cluster that I will later use to deploy the app. I am using a GKE standard cluster for this purpose.
+First, I need to set up the GKE cluster that will later use to deploy the app. I am using a GKE standard cluster for this purpose.
 
 ```bash
  gcloud beta container clusters create "k8s-pintu" \
@@ -66,11 +66,11 @@ I've also configured the ingress to route requests based on the host.
 
 ### GKE Configuration
 
-For my Google Kubernetes Engine (GKE) setup, I'm using Global Load Balancing (GLB) with Network Endpoint Groups (NEG) as the backend. I've also configured a static IP address (35.201.64.31) for the frontend.
+For the Google Kubernetes Engine (GKE) setup, I'm using Global Load Balancing (GLB) with Network Endpoint Groups (NEG) as the backend. I've also configured a static IP address (35.201.64.31) for the frontend.
 
 ## Health Check Adjustment
 
-Now, here's the tricky part. GLB automatically creates a health check to see if my pods are ready. However, my app doesn't have a route for the `/` path, which causes an issue. To fix it, I manually changed the health check to request `/healthz` instead of `/`, ensuring that my pods are marked as ready.
+Now, here's the tricky part. GLB automatically creates a health check to see if my pods are ready. However, my app doesn't have a route for the `/` path, which causes an issue. To fix it, I manually changed the health check to request `/healthz` instead of `/`, ensuring that the pods are marked as ready.
 
 <details>
 <summary><strong>Ingress Status</strong></summary>
@@ -80,7 +80,7 @@ Now, here's the tricky part. GLB automatically creates a health check to see if 
 
 ## DNS Configuration
 
-After addressing the health check issue, I proceeded to create a DNS record with my domain provider to route traffic to my external IP address.
+After addressing the health check issue, I proceeded to create a DNS record to route traffic to the external IP address.
 
 <details>
 <summary><strong>Add DNS Record</strong></summary>
@@ -90,7 +90,7 @@ After addressing the health check issue, I proceeded to create a DNS record with
 
 ## Final Access Testing
 
-With the infrastructure in place, I tested access to my services through the internet.
+With the infrastructure in place, I tested access to the services through the internet.
 
 <details>
 <summary><strong>Test Access to Node.js</strong></summary>
