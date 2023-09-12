@@ -49,24 +49,19 @@ Then we proceed to deploy the service and the ingress using k8s manifest that ha
 </details>
 
 We already deploy 2 service that is responsible for both golang and nodejs deployment, and  also already deploy the ingress that will route the request to the service based on the host. In GKE, ingress is deployed using GLB, and GLB use NEG as their backend, and for the frontend i already configure it to use a static IP Addreass which is 35.201.64.31. And since be dont configure our backend manually, the GLB will automatically create a health cheack that will check the readiness of the pod based on the response of http request to the / path, this will be a problem for us because our app doesn't have a route that handle / path, so we need to edit manually the healt check to request into /healtz instead of /, so our pod will not be mark not ready.
-
 And the ingress is ready and all the backend is marked healty.
 <details>
 <summary>Ingress Status</summary>
 
 ![](./img/ingressReady.png)
 </details>
-<br>
 After that, we just need to create a DNS record in the respective domain provider to route into our external IP Address.
-
 <details>
 <summary>Add DNS Record</summary>
 
 ![](./img/dnsRecord.png)
 </details>
-<br>
 After that, the infrastructure is ready, and can be access throuht internet.
-
 <details>
 <summary>Test Access nodejs</summary>
 
