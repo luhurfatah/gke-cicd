@@ -1,4 +1,11 @@
-# Infrastructure Setup
+# Architecture
+
+Here is the architecture of infrastructure :
+![architecture](./img/architecture.png)
+
+
+
+# Cluster Deployment and Configuration
 
 First, we need to setup the GKE cluster that we will use later to deploy the app. Here i am using GKE standard cluster.
 
@@ -32,7 +39,6 @@ First, we need to setup the GKE cluster that we will use later to deploy the app
   --node-locations "asia-southeast2-a"
 
 ```
-# Cluster Deployment and Configuration
 
 After creating the cluster, I deployed both the GoLang and Node.js apps on it using a CI/CD script that had been set up earlier. All I had to do was configure the service account and trigger the pipeline.
 
@@ -53,8 +59,8 @@ Then, I proceeded to deploy the service and the ingress using Kubernetes manifes
 ## Service Setup
 
 We've set up two services to handle the deployments:
-- GoLang
-- Node.js
+- golang-service
+- nodejs-service
 
 We've also configured the ingress to route requests based on the host.
 
@@ -103,11 +109,15 @@ With the infrastructure in place, we tested access to our services through the i
 The CI/CD setup also ready, and will automatically trigger of there is a commit in the repository.
 
 # API Documentation
-tes cicd tes
 ## Base URL
-The base URL for all API endpoints is:
+The bese URI for Golang service
 ```
-http://localhost:3000
+http://golang.lzy.engineer
+```
+
+The bese URI for Nodejs service
+```
+http://golang.lzy.engineer
 ```
 ## Get All Tasks
 - Endpoint: /tasks
@@ -117,7 +127,7 @@ http://localhost:3000
 
 Example Request:
 ```
-curl -X GET http://localhost:8000/tasks
+curl -X GET http://$BASE_URI/tasks
 ```
 
 Example Response:
@@ -143,7 +153,7 @@ Example Response:
 
 Example Request:
 ```
-curl -X POST http://localhost:8000/tasks \
+curl -X POST http://$BASE_URI/tasks \
 -H "Content-Type: application/json" \
 -d '{
   "title": "Dummy Task",
@@ -168,7 +178,7 @@ Example Response:
 
 Example Request:
 ```
-curl -X GET http://localhost:8000/healtz
+curl -X GET http://$BASE_URI/healtz
 ```
 
 Example Response:
